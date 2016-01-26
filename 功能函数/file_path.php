@@ -62,5 +62,7 @@ function  pic($path){
     preg_match($preg, $file_base64,$get_arr);
     //var_export($get_arr);
     file_put_contents($new_name, base64_decode($get_arr[2]));
+    //文件的绝对路径
+    echo realpath($new_name);
 }   
 pic('./g/1.jpg');
