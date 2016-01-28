@@ -1,0 +1,98 @@
+<html>
+	<div id='red_package'></div>
+</html>
+<script src="./jquery.min.js"></script>
+<script>
+$().ready(function(){
+	var test=new redPackage();
+	test.run();
+});
+function redPackage(){
+	//定时器句柄
+	var cl1='';
+	var cl2='';
+	//定时器1
+	this.run=function(){
+		//设置容器
+		$('html').css('position','relative');
+		$div=$('#red_package');
+		//无线增加div
+		cl1=setInterval(addDiv,2000);
+	}
+	var addDiv=function(){
+		var i=0;
+		var j=100;
+		while(i<10){
+			i++;
+			var $span=$('<span></span>');
+			$span.css('position','absolute');
+			$span.css('width','50px');
+			$span.css('height','50px');
+			$span.css('backgroundColor','red');
+			$span.css('left',(j*i)+'px');
+			$span.html(i);
+			$div.append($span);
+			$span.on('click',function(){
+				$(this).remove();
+				clearInterval(cl1);
+				alert('你中奖了');
+			});
+			//定时器2
+			cl2=setInterval(addTop,100,$span);
+		}
+	}
+	
+	var hei=document.documentElement.clientHeight-50;
+	var addTop=function($obj){
+			//高度处理
+			var px=$obj.css('top');
+			px=parseFloat(px.replace('px',''));
+			if(isNaN(px)){
+				px=0;
+			}
+			if(px>=hei){
+				$obj.remove();
+			}else{
+			
+				//宽度处理
+				addLeft($obj);
+
+				//继续下落
+				px+=5;
+				px=px+'px';
+				$obj.css('top',px);
+			}
+	}
+	var wid=document.documentElement.clientWidth-50;
+	var	addLeft=function($obj){
+			var px=$obj.css('left');
+			px=parseFloat(px.replace('px',''));
+			if(isNaN(px)){
+				px=0;
+			}
+			//随机 左 右 下 和速度
+			var direction=Math.floor((Math.random()*2));
+			var speed=Math.round(Math.random()*10);
+			switch(direction){
+				//左
+				case 0:{
+					px-=speed;
+					if(px<=0)px=0;
+				}break;
+				//右
+				case 1:{
+					px+=speed;
+					if(px>=wid)px=wid;
+				}break;
+				//下
+				case 2:{
+					
+				}break;
+			}
+			
+			$obj.css('left',px+'px');
+
+		}
+
+}
+</script>
