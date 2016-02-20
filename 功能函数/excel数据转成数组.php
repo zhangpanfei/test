@@ -1,13 +1,13 @@
 <?php
 	/*$filename='a.xls';
-	require_once './Classes/PHPExcel.php';     //修改为自己的目录
-	echo '<p>TEST PHPExcel 1.8.0: read xlsx file</p>';
-	$objReader = PHPExcel_IOFactory::createReaderForFile($filename);
-	$objPHPExcel = $objReader->load($filename);
-	$objPHPExcel->setActiveSheetIndex(1);
-	$date = $objPHPExcel->getActiveSheet()->getCell('A')->getValue();
-	print_r($date);*/
-	//print_r($objWorksheet);
+		require_once './Classes/PHPExcel.php';     //修改为自己的目录
+		echo '<p>TEST PHPExcel 1.8.0: read xlsx file</p>';
+		$objReader = PHPExcel_IOFactory::createReaderForFile($filename);
+		$objPHPExcel = $objReader->load($filename);
+		$objPHPExcel->setActiveSheetIndex(1);
+		$date = $objPHPExcel->getActiveSheet()->getCell('A')->getValue();
+		print_r($date);*/
+		//print_r($objWorksheet);
 
 /* 将excel转换为数组 by aibhsc
 * */
