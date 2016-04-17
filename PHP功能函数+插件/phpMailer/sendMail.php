@@ -9,7 +9,7 @@
         $mail->Password = $password; // SMTP password    
         $mail->From = $fromMail;      // 发件人邮箱    
         $mail->FromName =  $formName;  // 发件人    
-
+        $mail->Port=25; //邮箱服务器端口号
         $mail->CharSet = "utf-8";   // 这里指定字符集！    
         $mail->Encoding = "base64";    
         $mail->AddAddress($toMail,$toName);  // 收件人邮箱和姓名    
