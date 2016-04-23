@@ -1,0 +1,12 @@
+<meta charset='utf-8'>
+<h1>密码找回</h1>
+<form action='login.php?act=zhaohui' method='post'>
+name<input tyep=text name='username'><br>
+wenti<select name='wenti'>
+<?foreach($question as $val){?>
+<option value='<?echo $val?>'><?echo $val?></option>
+<?}?>
+</select><br>
+huida<input tyep=text name='answer'><br>
+<input type='submit' value='ok'>
+</form>
