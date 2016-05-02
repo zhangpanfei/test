@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body style="width:100%">
+	<div>
+		<div style="margin:0 auto;width:400px">
+			<input type="file" name="fileName" id="fileName"></input>
+			<button id="btn">上传</button>
+		</div>
+		<hr>
+		<div style="margin:0 auto;width:400px;background:pink" id="fileInfo">
+			<!--上传文件信息显示区-->
+		</div>
+		<hr>
+		<div style="margin:0 auto;width:400px;" id="upInfo">
+			<!--上传进度显示区-->
+			<div id="progress" style="border-bottom: 5px green solid;width:0%">
+				
+			</div>
+		</div>
+		<hr>
+		<div style="margin:0 auto;width:400px;" id="upRes">
+			<!--上传结果显示区-->
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	window.onload=function(){
+		//选择要上传的图片
+		document.getElementById('fileName').onchange=function(){
+			var file=this.files[0];
+			var fileInfo='当前上传文件名为：'+file.name+'<br>文件大小为：'+(file.size/1024/1024).toFixed(3)+'M';
+			document.getElementById('fileInfo').innerHTML=fileInfo;
+		}
+		//上传按钮点击开始上传
+		document.getElementById('btn').onclick=function(){
+			//构建表单
+			var form=new FormData();
+			form.append('fileName',document.getElementById('fileName').files[0]);
+			//发送ajax
+			var xhr=new XMLHttpRequest();
+			//上传进度
+			xhr.upload.onprogress=function(ev){
+				if(ev.lengthComputable){
+					var loaded=ev.loaded;  //已经上传的大小
+					var total=ev.total;    //总的大小
+					var progress=Math.round(loaded*100/total)+'%'; //计算百分比
+					var showPro=document.getElementById('progress');
+					showPro.style.width=progress;
+					showPro.innerHTML='当前上传进度为:'+progress;
+				}else{
+					document.getElementById('upInfo').innerHTML='上传进度不可用';
+				}
+			}
+			//上传完成后结果
+			xhr.onload=function(ev){
+				document.getElementById('upRes').innerHTML=ev.target.responseText;
+			}
+			xhr.open('POST','./upload.php');
+			xhr.send(form);
+		}
+	}
+</script>
