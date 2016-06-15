@@ -1,0 +1,63 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<title>Hello, World</title>  
+<style type="text/css">  
+html{height:100%}  
+body{height:100%;margin:0px;padding:0px}  
+#text{width:100px;height:500px;margin:0 auto}
+</style>  
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PrDmggEUOEUTnzqDGGKgWAVx">
+//v2.0版本的引用方式：src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"
+//v1.4版本及以前版本的引用方式：src="http://api.map.baidu.com/api?v=1.4&key=您的密钥&callback=initialize"
+</script>
+</head>  
+ 
+<body>  
+<div style='width:800px;height:500px;margin:0 auto' id="MAP"></div> 
+
+<div id='text'>
+	地址：<input type='text' id='addr' value=''><br><br>
+	精度：<input type='text' id='longitude' value=''><br><br>
+	纬度：<input type='text' id='latitude' value=''><br><br>
+</div>
+
+
+<script type="text/javascript"> 
+var map = new BMap.Map("MAP");          // 创建地图实例  
+var point = new BMap.Point(116.404, 39.915);  // 创建点坐标  
+map.centerAndZoom(point, 15);	// 初始化地图，设置中心点坐标和地图级别
+//覆盖物添加
+var marker = new BMap.Marker(point);
+map.addOverlay(marker);
+
+
+
+
+for(var i=1;i<=10;i++){
+	var point = new BMap.Point(116.404,39.916+(i/1000));
+	var marker = new BMap.Marker(point);
+	map.addOverlay(marker);
+}
+function showInfo(e){
+		//alert(e.point.lng + ", " + e.point.lat);
+		document.getElementById('longitude').value=e.point.lng;
+		document.getElementById('latitude').value=e.point.lat;
+		decodeLog(e.point);
+	}
+map.addEventListener("click", showInfo);
+
+function decodeLog(point){
+var geoc = new BMap.Geocoder(); //地理位置解析
+		geoc.getLocation(point, function(rs){
+			var addComp = rs.addressComponents;
+			//alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+			document.getElementById('addr').value=addComp.province  + addComp.city +  addComp.district +  addComp.street + addComp.streetNumber
+		});
+}
+</script>
+<script type="text/javascript"> var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ffe7b64514e96109bcaa3742460be3a0e' type='text/javascript'%3E%3C/script%3E")) </script>
+</body>  
+</html>
